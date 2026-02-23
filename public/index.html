@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Automatize a inserção de blocos de monetização e engajamento em artigos WordPress">
+  <title>Artigo Pilar — Automatizador de Blocos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- ==================== HEADER ==================== -->
+  <header id="app-header">
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Artigo<span class="logo-accent">Pilar</span></span>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-presets" title="Presets">
+          <span>📋</span> Presets
+        </button>
+        <button class="btn-icon" id="btn-theme" title="Tema">
+          <span>🎨</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main">
+    <!-- ==================== STEP 1: CONEXÃO ==================== -->
+    <section class="card" id="section-connection">
+      <div class="card-header">
+        <div class="step-badge">1</div>
+        <div>
+          <h2>Conexão WordPress</h2>
+          <p class="card-sub">Configure as credenciais do seu site</p>
+        </div>
+        <div class="connection-status" id="conn-status"></div>
+      </div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="input-site-url">URL do Site</label>
+            <input type="url" id="input-site-url" placeholder="https://conteudix.com" autocomplete="url">
+          </div>
+          <div class="form-group">
+            <label for="input-post-url">URL do Post <span class="label-hint">ou use o ID abaixo</span></label>
+            <input type="text" id="input-post-url" placeholder="https://conteudix.com/como-fazer-seo/">
+          </div>
+          <div class="form-group form-group-small">
+            <label for="input-post-id">Post ID <span class="label-hint">(alternativo)</span></label>
+            <input type="number" id="input-post-id" placeholder="123">
+          </div>
+          <div class="form-group">
+            <label for="input-username">Username WP</label>
+            <input type="text" id="input-username" placeholder="admin" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="input-app-password">Application Password</label>
+            <input type="password" id="input-app-password" placeholder="xxxx xxxx xxxx xxxx"
+              autocomplete="current-password">
+            <button class="btn-toggle-pw" id="btn-toggle-pw" type="button" title="Mostrar senha">👁️</button>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-secondary" id="btn-test-conn">🔌 Testar Conexão</button>
+          <button class="btn btn-primary" id="btn-load-post">📄 Carregar Post</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 2: POST & LINKS ==================== -->
+    <section class="card hidden" id="section-post">
+      <div class="card-header">
+        <div class="step-badge">2</div>
+        <div>
+          <h2>Post Carregado</h2>
+          <p class="card-sub" id="post-info-sub">Configure os links e opções</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- Post info -->
+        <div class="post-info-box" id="post-info-box">
+          <div class="post-title" id="post-title"></div>
+          <div class="post-meta">
+            <span class="badge" id="post-status-badge"></span>
+            <span id="post-meta-text"></span>
+          </div>
+          <div class="post-headings" id="post-headings"></div>
+          <div class="post-blocks-warning" id="post-blocks-warning"></div>
+        </div>
+
+        <!-- Links -->
+        <div class="subsection">
+          <h3>🔗 Links de Monetização</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-lead-magnet">Lead Magnet PDF (Google Drive ou link direto)</label>
+              <input type="url" id="input-lead-magnet" placeholder="https://drive.google.com/file/d/.../view">
+            </div>
+            <div class="form-group">
+              <label for="input-hostinger">Afiliado Hostinger</label>
+              <input type="url" id="input-hostinger" placeholder="https://hostinger.com.br?ref=...">
+            </div>
+            <div class="form-group">
+              <label for="input-lp-url">🔗 Landing Page Guia No-Code</label>
+              <input type="url" id="input-lp-url" value="https://conteudix.com/lp/"
+                placeholder="https://conteudix.com/lp/">
+            </div>
+          </div>
+          <h4>📦 Amazon — Produtos Detectados Automaticamente</h4>
+          <div class="auto-products-info" id="auto-products-info">
+            <p class="text-muted" style="margin:0 0 10px 0;font-size:13px">⚡ Os 3 produtos serão sugeridos
+              automaticamente com base no conteúdo do artigo. Adicione os links de afiliado abaixo:</p>
+          </div>
+          <div class="form-grid form-grid-3" id="amazon-links-grid">
+            <div class="form-group">
+              <label for="input-amazon-1" id="label-amazon-1">📖 Produto 1</label>
+              <input type="url" id="input-amazon-1" placeholder="https://amzn.to/...">
+            </div>
+            <div class="form-group">
+              <label for="input-amazon-2" id="label-amazon-2">💻 Produto 2</label>
+              <input type="url" id="input-amazon-2" placeholder="https://amzn.to/...">
+            </div>
+            <div class="form-group">
+              <label for="input-amazon-3" id="label-amazon-3">🖱️ Produto 3</label>
+              <input type="url" id="input-amazon-3" placeholder="https://amzn.to/...">
+            </div>
+          </div>
+          <h4>🔗 Links Internos (Próximos Passos)</h4>
+          <div class="form-group">
+            <label for="input-next-links">Cole as URLs uma em cada linha <span class="label-hint">(máx. 5
+                links)</span></label>
+            <textarea id="input-next-links" rows="5" placeholder="https://conteudix.com/seo-on-page/
+https://conteudix.com/conteudo-seo/
+https://conteudix.com/ferramentas-seo/" style="resize:vertical;min-height:80px"></textarea>
+          </div>
+        </div>
+
+        <!-- Opções -->
+        <div class="subsection">
+          <h3>⚙️ Opções de Inserção</h3>
+          <div class="blocks-selector">
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-A" checked>
+              <span class="check-mark"></span>
+              <span><strong>A</strong> — CTA Lead Magnet (topo)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-B" checked>
+              <span class="check-mark"></span>
+              <span><strong>B</strong> — Banner Hostinger (meio)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-C" checked>
+              <span class="check-mark"></span>
+              <span><strong>C</strong> — Amazon 3 Produtos (final)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-D" checked>
+              <span class="check-mark"></span>
+              <span><strong>D</strong> — Micro CTAs (checklist + hostinger)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-E" checked>
+              <span class="check-mark"></span>
+              <span><strong>E</strong> — Checklist Visual + Próximos Passos</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-QUIZ" checked>
+              <span class="check-mark"></span>
+              <span><strong>Quiz</strong> — Jogo Interativo</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-F" checked>
+              <span class="check-mark"></span>
+              <span><strong>F</strong> — 📘 Banner Guia No-Code (LP)</span>
+            </label>
+          </div>
+
+          <div class="options-row">
+            <label class="checkbox-item">
+              <input type="checkbox" id="check-backup" checked>
+              <span class="check-mark"></span>
+              <span>Criar backup antes de aplicar</span>
+            </label>
+          </div>
+
+          <!-- Cores customizáveis -->
+          <div class="color-config" id="color-config">
+            <button class="btn btn-ghost" id="btn-toggle-colors">🎨 Customizar Cores</button>
+            <div class="color-inputs hidden" id="color-inputs">
+              <div class="color-group">
+                <label>Primary</label>
+                <input type="color" id="color-primary" value="#00d4aa">
+              </div>
+              <div class="color-group">
+                <label>Accent</label>
+                <input type="color" id="color-accent" value="#ff6b35">
+              </div>
+              <div class="color-group">
+                <label>Background</label>
+                <input type="color" id="color-bg" value="#1a1a2e">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" id="btn-save-preset">💾 Salvar Preset</button>
+          <button class="btn btn-primary btn-lg" id="btn-preview">👁️ Gerar Preview</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 3: PREVIEW ==================== -->
+    <section class="card hidden" id="section-preview">
+      <div class="card-header">
+        <div class="step-badge">3</div>
+        <div>
+          <h2>Preview</h2>
+          <p class="card-sub">Revise as inserções antes de aplicar</p>
+        </div>
+        <div class="preview-count" id="preview-count"></div>
+      </div>
+      <div class="card-body">
+        <!-- Resumo das inserções -->
+        <div class="insertions-list" id="insertions-list"></div>
+
+        <!-- Diff -->
+        <div class="diff-container" id="diff-container">
+          <div class="diff-header">
+            <h3>📝 Diff do Conteúdo</h3>
+            <div class="diff-stats" id="diff-stats"></div>
+          </div>
+          <div class="diff-view" id="diff-view"></div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" id="btn-back-config">← Voltar</button>
+          <button class="btn btn-danger btn-lg" id="btn-apply">🚀 Aplicar no WordPress</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 4: RESULTADO ==================== -->
+    <section class="card hidden" id="section-result">
+      <div class="card-header">
+        <div class="step-badge step-badge-success">✓</div>
+        <div>
+          <h2>Aplicado com Sucesso!</h2>
+          <p class="card-sub" id="result-sub"></p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="result-box" id="result-box"></div>
+        <div class="form-actions">
+          <a href="#" class="btn btn-primary" id="btn-view-post" target="_blank">🔗 Ver Post no Site</a>
+          <button class="btn btn-secondary" id="btn-new">📄 Novo Post</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LOGS ==================== -->
+    <section class="card" id="section-logs">
+      <div class="card-header card-header-compact">
+        <h3>📋 Logs</h3>
+        <button class="btn btn-ghost btn-sm" id="btn-clear-logs">Limpar</button>
+      </div>
+      <div class="logs-container" id="logs-container">
+        <div class="log-empty">Aguardando ação...</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODAL PRESETS ==================== -->
+  <div class="modal-overlay hidden" id="modal-presets">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>📋 Presets Salvos</h3>
+        <button class="modal-close" id="modal-close-presets">✕</button>
+      </div>
+      <div class="modal-body" id="presets-list">
+        <p class="text-muted">Nenhum preset salvo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL SAVE PRESET ==================== -->
+  <div class="modal-overlay hidden" id="modal-save-preset">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>💾 Salvar Preset</h3>
+        <button class="modal-close" id="modal-close-save">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="input-preset-name">Nome do Preset</label>
+          <input type="text" id="input-preset-name" placeholder="Ex: Conteudix SEO">
+        </div>
+        <button class="btn btn-primary" id="btn-confirm-save-preset" style="width:100%;margin-top:12px">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LOADING OVERLAY ==================== -->
+  <div class="loading-overlay hidden" id="loading-overlay">
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p id="loading-text">Processando...</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

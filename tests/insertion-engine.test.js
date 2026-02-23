@@ -230,9 +230,9 @@ test('deve inserir Ponto A antes do Índice', () => {
     assert(ctaPos < indicePos, 'CTA should be before Índice');
 });
 
-test('deve inserir âncora guia-seo', () => {
+test('deve inserir âncora guia-artigo', () => {
     const result = applyInsertions(sampleContent, testConfig, ['A']);
-    assert(result.newContent.includes('id="guia-seo"'), 'Should contain anchor');
+    assert(result.newContent.includes('id="guia-artigo"'), 'Should contain anchor');
 });
 
 test('deve inserir Quiz antes do FAQ', () => {

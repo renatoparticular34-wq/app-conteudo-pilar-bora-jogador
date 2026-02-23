@@ -258,38 +258,30 @@ function applyInsertions(content, config, selectedBlocks) {
         }
     }
 
-    // ----- ÂNCORA guia-seo -----
+    // ----- ÂNCORA guia-artigo -----
     if (selectedBlocks.includes('A')) {
-        // Inserir antes do heading "Entendendo Como Fazer SEO" ou primeiro H2
-        const guiaHeading = findHeading(headings, ['entendendo como fazer seo', 'o que é seo', 'como fazer seo']);
-        const anchorTarget = guiaHeading || firstH2;
-        if (anchorTarget && !content.includes('id="guia-seo"')) {
+        // Inserir âncora antes do primeiro H2 (genérico para qualquer nicho)
+        const anchorTarget = firstH2;
+        if (anchorTarget && !content.includes('id="guia-artigo"')) {
             addInsertion('ANCHOR_GUIA', getInsertBefore(anchorTarget),
-                templates.templateAnchor('guia-seo'),
-                `antes do heading "${anchorTarget.text}" (âncora #guia-seo)`
+                templates.templateAnchor('guia-artigo'),
+                `antes do heading "${anchorTarget.text}" (âncora #guia-artigo)`
             );
         }
     }
 
     // ----- PONTO B: Hostinger (meio) -----
     if (selectedBlocks.includes('B')) {
-        const pontoB_heading = findHeading(headings, [
-            'como fazer seo: como funciona na prática',
-            'como funciona na prática',
-            'pesquisa de palavras-chave',
-            'pesquisa de palavras chave',
-            'keyword research',
-        ]);
-
-        if (pontoB_heading) {
-            addInsertion('B', getInsertAfterSection(content, pontoB_heading, headings),
-                templates.templatePontoB(hostingerUrl, colors),
-                `após seção "${pontoB_heading.text}"`
-            );
-        } else if (secondH2) {
+        // Posicionar após o 2º H2 (genérico para qualquer nicho)
+        if (secondH2) {
             addInsertion('B', getInsertAfterSection(content, secondH2, headings),
                 templates.templatePontoB(hostingerUrl, colors),
                 `após o segundo H2 ("${secondH2.text}")`
+            );
+        } else if (firstH2) {
+            addInsertion('B', getInsertAfterSection(content, firstH2, headings),
+                templates.templatePontoB(hostingerUrl, colors),
+                `após o primeiro H2 ("${firstH2.text}") — fallback`
             );
         } else {
             warnings.push('⚠️ Ponto B: Não foi possível encontrar posição adequada');
@@ -351,65 +343,34 @@ function applyInsertions(content, config, selectedBlocks) {
 
     // ----- PONTO D: Micro CTAs -----
     if (selectedBlocks.includes('D')) {
-        // D2: Micro CTA Checklist — após "Otimização de Conteúdo" ou "Como Fazer SEO na Prática"
-        const d2Heading = findHeading(headings, [
-            'otimização de conteúdo',
-            'otimizacao de conteudo',
-            'como fazer seo na prática',
-            'como fazer seo na pratica',
-            'criação de conteúdo',
-            'conteúdo otimizado',
-        ]);
-        if (d2Heading) {
-            addInsertion('D2', getInsertAfterSection(content, d2Heading, headings),
+        // D2: Micro CTA Checklist — após o 3º H2 (genérico)
+        const thirdH2_d = findHeadingByIndex(headings, 2, 2);
+        if (thirdH2_d) {
+            addInsertion('D2', getInsertAfterSection(content, thirdH2_d, headings),
                 templates.templateMicroCTAChecklist(leadMagnetUrl),
-                `após seção "${d2Heading.text}"`
-            );
-        } else if (findHeadingByIndex(headings, 2, 2)) {
-            const thirdH2 = findHeadingByIndex(headings, 2, 2);
-            addInsertion('D2', getInsertAfterSection(content, thirdH2, headings),
-                templates.templateMicroCTAChecklist(leadMagnetUrl),
-                `após terceiro H2 ("${thirdH2.text}") — fallback`
+                `após terceiro H2 ("${thirdH2_d.text}")`
             );
         }
 
-        // D1: Micro CTA Hostinger — após "Experiência do Usuário" ou "SEO Técnico"
-        const d1Heading = findHeading(headings, [
-            'experiência do usuário',
-            'experiencia do usuario',
-            'seo técnico',
-            'seo tecnico',
-            'technical seo',
-            'velocidade do site',
-        ]);
-        if (d1Heading) {
-            addInsertion('D1', getInsertAfterSection(content, d1Heading, headings),
+        // D1: Micro CTA Hostinger — após o 4º H2 (genérico)
+        const fourthH2_d = findHeadingByIndex(headings, 2, 3);
+        if (fourthH2_d) {
+            addInsertion('D1', getInsertAfterSection(content, fourthH2_d, headings),
                 templates.templateMicroCTAHostinger(hostingerUrl),
-                `após seção "${d1Heading.text}"`
-            );
-        } else if (findHeadingByIndex(headings, 2, 3)) {
-            const fourthH2 = findHeadingByIndex(headings, 2, 3);
-            addInsertion('D1', getInsertAfterSection(content, fourthH2, headings),
-                templates.templateMicroCTAHostinger(hostingerUrl),
-                `após quarto H2 ("${fourthH2.text}") — fallback`
+                `após quarto H2 ("${fourthH2_d.text}")`
             );
         }
     }
 
     // ----- PONTO E: Checklist Visual + Próximos Passos -----
     if (selectedBlocks.includes('E')) {
-        // E1: Checklist Visual — após "Melhores Práticas de Como Fazer SEO"
-        const e1Heading = findHeading(headings, [
-            'melhores práticas',
-            'melhores praticas',
-            'best practices',
-            'boas práticas',
-            'boas praticas',
-        ]);
-        if (e1Heading) {
-            addInsertion('E1', getInsertAfterSection(content, e1Heading, headings),
+        // E1: Checklist Visual — após o penúltimo H2 (genérico)
+        const h2s_e = headings.filter(h => h.level === 2);
+        const penultH2 = h2s_e.length >= 2 ? h2s_e[h2s_e.length - 2] : null;
+        if (penultH2) {
+            addInsertion('E1', getInsertAfterSection(content, penultH2, headings),
                 templates.templateChecklistVisual(colors),
-                `após seção "${e1Heading.text}"`
+                `após penúltimo H2 ("${penultH2.text}")`
             );
         } else if (conclusion) {
             addInsertion('E1', getInsertBefore(conclusion),

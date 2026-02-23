@@ -106,6 +106,23 @@ const PRODUCT_DATABASE = {
         { emoji: '💻', title: 'Notebook para Trabalho', desc: 'O equipamento que uso para produzir conteúdo.' },
         { emoji: '🎧', title: 'Fone com Cancelamento de Ruído', desc: 'Foco total em qualquer ambiente.' },
     ],
+
+    // ----- ESPORTES / FUTEBOL -----
+    esportes: [
+        { emoji: '⚽', title: 'Bola de Futebol Oficial', desc: 'A bola oficial para treinos e peladas.' },
+        { emoji: '📖', title: 'Anatomia do Futebol', desc: 'Livro definitivo sobre tática, formação e estratégia no futebol.' },
+        { emoji: '👟', title: 'Chuteira Society Profissional', desc: 'Performance e conforto para jogar em alto nível.' },
+    ],
+    futsal: [
+        { emoji: '⚽', title: 'Bola de Futsal Penalty', desc: 'A bola preferida para quadras cobertas.' },
+        { emoji: '👟', title: 'Tênis para Futsal', desc: 'Aderência e controle de bola em quadra.' },
+        { emoji: '📖', title: 'Tática no Futsal Moderno', desc: 'Como pensar o jogo de salão como os grandes times.' },
+    ],
+    fitness: [
+        { emoji: '🏋️', title: 'Kit Halteres Ajustáveis', desc: 'Treino completo em casa com peso variável.' },
+        { emoji: '⌚', title: 'Smartwatch Esportivo', desc: 'Monitore batimentos, distância e performance.' },
+        { emoji: '📖', title: 'Treino Funcional na Prática', desc: 'Exercícios para aumentar força e mobilidade.' },
+    ],
 };
 
 // Mapeamento de palavras-chave para categorias
@@ -125,6 +142,9 @@ const KEYWORD_MAP = [
     { keywords: ['design', 'ui', 'ux', 'figma', 'photoshop', 'ilustração', 'ilustracao', 'logo', 'identidade visual'], category: 'design' },
     { keywords: ['fotografia', 'foto', 'câmera', 'camera', 'lightroom', 'edição de fotos', 'composição fotográfica'], category: 'fotografia' },
     { keywords: ['culinária', 'culinaria', 'receita', 'cozinha', 'gastronomia', 'ingrediente', 'preparo'], category: 'culinaria' },
+    { keywords: ['futebol', 'gol', 'jogador', 'craque', 'tática', 'tatica', 'formação', 'formacao', 'brasileirão', 'brasileirao', 'copa', 'seleção', 'campeonato', 'atacante', 'zagueiro', 'goleiro', 'meio-campo', 'drible', 'pênalti', 'penalti', 'escanteio', 'impedimento', 'lateral', 'volante', 'meia', 'centroavante'], category: 'esportes' },
+    { keywords: ['futsal', 'quadra', 'pivô', 'pivo', 'ala', 'fixo', 'goleiro de futsal'], category: 'futsal' },
+    { keywords: ['academia', 'treino', 'crossfit', 'musculação', 'musculacao', 'corrida', 'maratona', 'exercício físico'], category: 'fitness' },
 ];
 
 /**

@@ -123,6 +123,23 @@ const PRODUCT_DATABASE = {
         { emoji: '⌚', title: 'Smartwatch Esportivo', desc: 'Monitore batimentos, distância e performance.' },
         { emoji: '📖', title: 'Treino Funcional na Prática', desc: 'Exercícios para aumentar força e mobilidade.' },
     ],
+
+    // ----- JARDIM / PLANTAS / DECORAÇÃO -----
+    jardinagem: [
+        { emoji: '🌱', title: 'Kit de Ferramentas para Jardim', desc: 'Pá, rastelo, tesoura de poda e luvas — tudo para cuidar do seu cantinho verde.' },
+        { emoji: '📖', title: 'Horta em Casa para Iniciantes', desc: 'Guia prático para plantar temperos, verduras e flores.' },
+        { emoji: '💧', title: 'Sistema de Irrigação por Gotejamento', desc: 'Irrigação automática para vasos e canteiros — economize água.' },
+    ],
+    decoracao: [
+        { emoji: '🏡', title: 'Kit Vasos Decorativos', desc: 'Vasos modernos para dar vida a qualquer ambiente.' },
+        { emoji: '📖', title: 'Decoração Descomplicada', desc: 'Ideias criativas para transformar sua casa gastando pouco.' },
+        { emoji: '💡', title: 'Fita LED Decorativa', desc: 'Iluminação ambiente que transforma qualquer espaço.' },
+    ],
+    artesanato: [
+        { emoji: '✂️', title: 'Kit Artesanato Completo', desc: 'Cola, tesoura, tintas e pincéis para projetos criativos.' },
+        { emoji: '📖', title: 'Faça Você Mesmo: 100 Projetos', desc: 'Ideias de DIY para decorar, reciclar e presentear.' },
+        { emoji: '🕯️', title: 'Kit para Fazer Velas Artesanais', desc: 'Parafina, essências e moldes para criar velas lindas.' },
+    ],
 };
 
 // Mapeamento de palavras-chave para categorias
@@ -145,6 +162,9 @@ const KEYWORD_MAP = [
     { keywords: ['futebol', 'gol', 'jogador', 'craque', 'tática', 'tatica', 'formação', 'formacao', 'brasileirão', 'brasileirao', 'copa', 'seleção', 'campeonato', 'atacante', 'zagueiro', 'goleiro', 'meio-campo', 'drible', 'pênalti', 'penalti', 'escanteio', 'impedimento', 'lateral', 'volante', 'meia', 'centroavante'], category: 'esportes' },
     { keywords: ['futsal', 'quadra', 'pivô', 'pivo', 'ala', 'fixo', 'goleiro de futsal'], category: 'futsal' },
     { keywords: ['academia', 'treino', 'crossfit', 'musculação', 'musculacao', 'corrida', 'maratona', 'exercício físico'], category: 'fitness' },
+    { keywords: ['jardim', 'jardinagem', 'planta', 'plantar', 'muda', 'semente', 'vaso', 'horta', 'tempero', 'adubo', 'substrato', 'poda', 'irrigação', 'irrigacao', 'gotejamento', 'floricultura', 'orquídea', 'orquidea', 'suculenta', 'cacto', 'pitaya', 'varanda', 'canteiro'], category: 'jardinagem' },
+    { keywords: ['decoração', 'decoracao', 'decorar', 'parede', 'sala', 'quarto', 'cozinha', 'banheiro', 'corredor', 'móveis', 'moveis', 'cortina', 'almofada', 'tapete', 'prateleira', 'jardim vertical', 'luminária', 'luminaria', 'ambiente'], category: 'decoracao' },
+    { keywords: ['artesanato', 'diy', 'faça você mesmo', 'faca voce mesmo', 'reciclagem', 'reciclar', 'garrafa', 'vela', 'crochê', 'croche', 'tricô', 'trico', 'pintura', 'cola quente', 'feltro', 'biscuit'], category: 'artesanato' },
 ];
 
 /**
